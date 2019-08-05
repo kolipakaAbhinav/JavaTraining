@@ -1,0 +1,178 @@
+package TreeforbinarySearch;
+
+public class Bst {
+    public static void main(String []args)
+    {
+        TreeNode root =new TreeNode(15);
+        root.left=new TreeNode(10);
+        root.right=new TreeNode(20);
+        root.left.left=new TreeNode(8);
+        root.left.right=new TreeNode(11);
+        root.left.left.left=new TreeNode(5);
+        root.left.left.right=new TreeNode(9);
+
+        root.left.left.left.left=new TreeNode(2);
+        root.left.left.left.right=new TreeNode(6);
+        root.right.left=new TreeNode(16);
+        root.right.right=new TreeNode(25);
+        root.right.right.left=new TreeNode(22);
+        root.right.right.left.left=new TreeNode(23);
+        root.right.right.right=new TreeNode(30);
+        root.right.right.right.left=new TreeNode(27);
+        BinarySearchTree bst=new BinarySearchTree();
+
+        TreeNode k=bst.getMaxRecursive(root);
+        System.out.println(k.val);
+        TreeNode l=bst.getMinRecursive(root);
+        System.out.println(l.val);
+        boolean p=bst.searchRecursive(root,21);
+           System.out.println(p);
+        boolean q=bst.searchIterative(root,21);
+        System.out.println(q);
+              bst.inorder(root);
+              System.out.println();
+        bst.preorder(root);
+        System.out.println();
+        bst.postorder(root);
+
+    }
+}
+class BinarySearchTree{
+  public TreeNode getMax(TreeNode root){
+      while(root.right!=null){root=root.right;}
+
+  return root;
+
+  }
+  public TreeNode getMin(TreeNode root){
+      while(root.left!=null){root=root.left;}
+
+      return root;
+
+
+  }
+  public TreeNode getMaxRecursive(TreeNode root)
+  {
+      if(root.right==null)
+        return root;
+      else{
+           root=root.right;
+           return getMaxRecursive(root);
+
+      }
+  }
+  public TreeNode getMinRecursive(TreeNode root)
+  {
+      if(root.left==null)
+          return root;
+      else{
+          root=root.left;
+          return getMinRecursive(root);
+
+      }
+  }
+  public boolean searchRecursive(TreeNode root,int data)
+  {
+      if(root==null)
+          return false;
+
+      else if(root.val==data)
+      {
+          return true;
+      }
+      else
+          {
+              if(root.val>data)
+              {
+                  root=root.left;
+                  return searchRecursive(root,data);
+              }
+              else
+              {
+                  root=root.right;
+                  return searchRecursive(root,data);
+
+              }
+          }
+          }
+
+    public boolean searchIterative(TreeNode root,int data)
+    {
+        while(root!=null)
+        {
+
+         if(root.val==data)
+        {
+            return true;
+        }
+        else
+        {
+            if(root.val>data)
+            {
+                root=root.left;
+
+
+            }
+                else
+                root=root.right;
+        }
+    }
+    return false;
+    }
+public void inorder(TreeNode root)
+{
+    if(root==null)
+    {
+     return;
+    }
+    inorder(root.left);
+    System.out.println(root.val);
+    inorder(root.right);
+
+}
+    public void postorder(TreeNode root)
+    {
+        if(root==null)
+        {
+            return;
+        }
+        postorder(root.left);
+        postorder(root.right);
+        System.out.println(root.val);
+
+
+    }
+    public void preorder(TreeNode root)
+    {
+        if(root==null)
+        {
+            return;
+        }
+//        inorder(root.left);
+        System.out.println(root.val);
+        preorder(root.left);
+
+        preorder(root.right);
+
+    }
+    public int height(TreeNode root)
+    {
+
+
+        return 0;
+    }
+}
+
+class TreeNode{
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int data)
+    {
+    this.val=data;
+    this.left=null;
+    this.right=null;
+
+}
+}
+
